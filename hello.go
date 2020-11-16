@@ -4,7 +4,7 @@
  * @Author: cm.d
  * @Date: 2021-11-16 11:43:17
  * @LastEditors: cm.d
- * @LastEditTime: 2021-11-16 12:04:04
+ * @LastEditTime: 2021-11-16 12:23:20
  */
 package main
 
@@ -36,7 +36,7 @@ func main() {
 			fmt.Println(err)
 			return
 		}
-		commitString := fmt.Sprintf("git commit --date=\"%s %d 9:05:20 2021 +0800\" -m \"提交\"", t.Month(), t.Day())
+		commitString := fmt.Sprintf("git commit --date=\"%s %d 9:05:20 2020 +0800\" -m \"提交\"", t.Month(), t.Day())
 		fmt.Println("Commit string is ", commitString)
 		Shellout("echo a >> hello.txt")
 		Shellout("git add *")
