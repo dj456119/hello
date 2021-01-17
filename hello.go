@@ -4,14 +4,16 @@
  * @Author: cm.d
  * @Date: 2021-11-16 11:43:17
  * @LastEditors: cm.d
- * @LastEditTime: 2021-11-16 11:53:50
+ * @LastEditTime: 2021-11-16 12:04:04
  */
 package main
 
 import (
 	"bufio"
+	"bytes"
 	"fmt"
 	"os"
+	"os/exec"
 	"strings"
 	"time"
 )
@@ -36,5 +38,27 @@ func main() {
 		}
 		commitString := fmt.Sprintf("git commit --date=\"%s %d 9:05:20 2021 +0800\" -m \"提交\"", t.Month(), t.Day())
 		fmt.Println("Commit string is ", commitString)
+		Shellout("echo a >> hello.txt")
+		Shellout("git add *")
+		Shellout(commitString)
+		Shellout("git push origin")
 	}
+}
+
+func Shellout(command string) {
+	var stdout bytes.Buffer
+	var stderr bytes.Buffer
+	cmd := exec.Command("bash", "-c", command)
+	cmd.Stdout = &stdout
+	cmd.Stderr = &stderr
+	err := cmd.Run()
+	if err != nil {
+		fmt.Println("err cmd :", command)
+		fmt.Println("stdout: ", stdout.String())
+		fmt.Println("stderr: ", stderr.String())
+		os.Exit(-1)
+	}
+	fmt.Println("exec cmd done:", command)
+	fmt.Println("stdout: ", stdout.String())
+	fmt.Println("stderr: ", stderr.String())
 }
